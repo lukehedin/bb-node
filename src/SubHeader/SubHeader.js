@@ -14,7 +14,7 @@ class SubHeader extends Component {
 	}
 	render() {
 		return (
-			<nav class="site-nav moving-background">
+			<nav className="site-subheader moving-background">
 				<div className="location-info content">
 					<LocationSearch showSearchButton={false} />
 					<div className="spacer"></div>

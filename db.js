@@ -11,19 +11,28 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
         freezeTableName: true //LH: do not pluralise table names for queries (was making 'comment' become 'comments)
     }
 });
+
 module.exports = {
-    connect: function () {
-      this.defineSchema();
+    connect: function (syncSchema) {
+      var db = this;
+
+      db.defineSchema();
 
       //Establish connection to DB using sequelize
       sequelize.authenticate()
       .then(() => { console.log('Database connection has been established successfully.'); })
       .catch(err => { console.error('ERROR: Unable to connect to the database:', err); });
-    },
-    sync: function(syncConfig){
-      sequelize.sync(syncConfig).then(() => {
-        // Tables created
-      });
+
+      if(syncSchema) {
+        sequelize.sync({
+          logging: console.log,
+          alter: false, // will alter the table if feasible
+          force: false // will drop the table if it already exists
+        }).then(() => {
+          // Tables created
+          
+        });
+      }
     },
     models: [],
     defineSchema: function() {
@@ -31,6 +40,7 @@ module.exports = {
 
       //Models
 
+      // Model: bounty
       db.models.bounty = sequelize.define('bounty', {
         name: {
           type: Sequelize.STRING
@@ -49,15 +59,38 @@ module.exports = {
         }
       });
 
+      // Model: organisation
       db.models.organisation = sequelize.define('organisation', {
         name: {
           type: Sequelize.STRING
         }
       });
 
+      // Model: user
+      db.models.user = sequelize.define('user', {
+        username: {
+          type: Sequelize.STRING
+        },
+        firstName: {
+          type: Sequelize.STRING
+        },
+        lastName: {
+          type: Sequelize.STRING
+        },
+        password: {
+          type: Sequelize.STRING
+        },
+        email: {
+          type: Sequelize.STRING
+        },
+        dob: {
+          type: Sequelize.DATEONLY
+        }
+      });
+
       //Associations
 
-      //Each organisation has many bounties
+      // Associaton: Each organisation has many bounties
       db.models.organisation.hasMany(db.models.bounty, {as: 'bounties'})
     }
 };

@@ -1,0 +1,42 @@
+.site-header {
+	padding: rem-calc(10 0);
+	display: flex;
+
+	.header-logo {
+		flex: 4;
+		cursor: pointer;
+
+		img {
+			display: none;
+			width: rem-calc(60);
+			height: rem-calc(40);
+
+			@media #{$device-small} {
+				display: inline-block;
+			}
+		}
+
+		h1 {
+			vertical-align: top;
+			display: inline-block;
+			text-align: center;
+			font-size: rem-calc(20);
+			line-height: rem-calc(20);
+			width: rem-calc(100);
+		}
+
+		&:hover {
+			opacity: 0.7;
+		}
+	}
+
+	.header-user {
+		flex: 5;
+		text-align: right;
+
+		button {
+			margin: rem-calc(2);
+			margin-right: 0;
+		}
+	}
+}

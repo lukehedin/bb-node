@@ -1,0 +1,29 @@
+.location-search {
+	display: flex;
+	width: 100%;
+	max-width: rem-calc(600);
+	
+	.location-icon {
+		height: rem-calc(36);
+		width: rem-calc(36);
+	}
+
+	input {
+		color: $bounty-white;
+		flex-grow: 1;
+		width: rem-calc(100);
+		background: none;
+		border: none;
+		border-bottom: rem-calc(2) solid $bounty-white;
+		vertical-align: top;
+		margin: rem-calc(0 12);
+		display: inline-block;
+		text-overflow: ellipsis;
+	}
+	
+	button {
+		width: rem-calc(80);
+		font-size: rem-calc(16);
+		display: inline-block;
+	}
+}

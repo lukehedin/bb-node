@@ -1,39 +1,27 @@
 import React, { Component } from 'react';
-import bb_flag from '../_img/bb_flag.svg';
+import Button from '../Button/Button';
+import bb_flag from './bb_flag.svg';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
 	constructor(props) {
 		super(props);
-
-		this.handleLogInClick = this.handleLogInClick.bind(this);
-		this.handleSignUpClick = this.handleSignUpClick.bind(this);
-	}
-	handleLogInClick() {
-
-	}
-	handleSignUpClick() {
-
 	}
 	render() {
 		return (
 			<header className="site-header content">
-				<div className="header-logo">
-					<img src={bb_flag} className="App-logo" alt="logo" />
-					<img src="/Assets/img/bb_flag.svg" alt="" />
+				<Link className="header-logo" to='/welcome'>
+					<img src={bb_flag} alt="" />
 					<h1>Birthday Bounty</h1>
-				</div>
+				</Link>
 				<div className="header-user">
-					{true ?
+					{false ?
 						<div className="user-details">
 
 						</div> :
 						<div className="user-buttons">
-							<button className="button-login light-button" onClick={this.handleLogInClick}>
-								Log In
-							</button>
-							<button className="button-signup dark-button" onClick={this.handleSignUpClick}>
-								Sign Up
-							</button>
+							<Button className="light-button" linkTo="/login" text="Log In"/>
+							<Button className="dark-button" linkTo="/signup" text="Sign Up"/>
 						</div>
 					}
 				</div>

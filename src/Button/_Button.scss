@@ -1,0 +1,23 @@
+.button {
+    border: rem-calc(1) solid;
+    border-radius: rem-calc(4);
+    cursor: pointer;
+    padding: rem-calc(6);
+
+    //Default to light button
+    color: $bounty-pink;
+    border-color: $bounty-pink;
+    background: $bounty-white;
+
+    &.dark-button {
+        color: $bounty-white;
+        border-color: $bounty-white;
+        background: $bounty-pink;
+    }
+
+    &:hover {
+        color: $bounty-white;
+        border-color: $bounty-lightpink;
+        background: $bounty-lightpink;
+    }
+}

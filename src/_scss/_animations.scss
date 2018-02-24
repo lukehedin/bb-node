@@ -1,0 +1,15 @@
+/*Moving watermark background*/
+.moving-background {
+	-webkit-transform: translateZ(0); //For mobile anim speed
+	animation: animatedBackground 32s linear infinite;
+}
+
+@keyframes animatedBackground {
+	0% {
+		background-position: 0 0;
+	}
+
+	100% {
+		background-position: 512px 0;
+	}
+}

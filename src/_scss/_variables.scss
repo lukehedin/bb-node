@@ -1,0 +1,39 @@
+$bounty-pink: #f69;
+$bounty-lightpink: #fab;
+$bounty-white: #fff;
+$bounty-grey: #ababab;
+$bounty-darkgrey: #676767;
+
+$bounty-type-red: #ef4d4d;
+$bounty-type-orange: #eeaf4b;
+$bounty-type-green: #67b456;
+$bounty-type-blue: #4c8ea3;
+$bounty-type-navy: #403b90;
+$bounty-type-purple: #403b90;
+
+//Device media queries
+//tiny-device by default - mobile first design
+$device-small: "only screen and (min-width: 480px)";
+$device-medium: "only screen and (min-width: 650px)";
+$device-large: "only screen and (min-width: 950px)";
+$device-huge: "only screen and (min-width: 1024px)";
+
+$text-tiny: rem-calc(11);
+$text-small: rem-calc(18);
+$text-medium: rem-calc(26);
+$text-large: rem-calc(42);
+$text-huge: rem-calc(72);
+
+
+//Mixins
+@mixin bounty-item-flex {
+	width: 100%;
+
+	@media #{$device-medium} {
+		width: 50%;
+	}
+
+	@media #{$device-large} {
+		width: 33.3333%;
+	}
+}

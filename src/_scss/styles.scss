@@ -1,0 +1,76 @@
+@import './_functions.scss';
+@import './_variables.scss';
+@import './_animations.scss';
+
+body {
+	margin: 0;
+	font-family: 'Raleway', sans-serif;
+    font-size: rem-calc(12);
+	color: $bounty-darkgrey;
+
+	h1 {
+		font-family: 'Luckiest Guy', cursive;
+		color: $bounty-pink;
+		letter-spacing: rem-calc(1);
+		font-weight: normal;
+		margin: 0;
+	}
+
+	.content {
+		max-width: rem-calc(1200);
+		margin: 0 auto;
+		width: 90%;
+
+		@media #{$device-small} {
+			width: 80%;
+		}
+	}
+
+	//No input highlight
+	input:focus,
+	select:focus,
+	textarea:focus,
+	button:focus {
+		outline: none;
+	}
+
+	//No number arrow spinners
+	input[type=number]::-webkit-inner-spin-button,
+	input[type=number]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	input, button {
+		font-family: 'Raleway', sans-serif;
+		font-size: $text-small;
+		color: $bounty-darkgrey;
+	}
+
+	.welcome-strip {
+		background-color: $bounty-pink;
+		background-image: url(../Assets//img/icon_background.svg);
+		background-repeat: repeat-x;
+		box-shadow: inset rem-calc(0 5 10 0) rgba(0,0,0,0.2);
+		height: 80vh;
+		min-height: rem-calc(400);
+		max-height: rem-calc(800);
+		width: 100%;
+		padding-top: 10vh;
+
+		.content {
+			text-align: center;
+		}
+	}
+
+	.bounty-results {
+		padding: rem-calc(24 0);
+    }
+
+    @import '../Button/_Button.scss';
+    @import '../Header/_Header.scss';
+    @import '../SubHeader/_SubHeader.scss';
+    @import '../Footer/_Footer.scss';
+    @import '../LocationSearch/_LocationSearch.scss';
+    @import '../BountyResults/_BountyResults.scss';
+}

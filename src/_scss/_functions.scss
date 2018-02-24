@@ -1,0 +1,26 @@
+//LH: Holds common SCSS functions
+
+//LH: github.com/twbs/bootstrap/pull/17821/commits
+@function strip-unit($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+/* rem-calc function for easy pixel to rem conversion*/
+$font-size-root: 16px;
+
+@function rem-calc($values) {
+    $rem-values: ();
+
+    @each $value in $values {
+        @if ($value > 0, $value < 0) {
+            $value: strip-unit($value) / strip-unit($font-size-root) * 1rem;
+        }
+        @else {
+            $value: 0; // ensure that `0rem` becomes unitless
+        }
+
+        $rem-values: append($rem-values, $value);
+    }
+
+    @return $rem-values;
+}

@@ -1,0 +1,14 @@
+.bounty-item {
+	display: flex;
+	display: inline-block;
+	@include bounty-item-flex;
+
+	.bounty-item-inner {
+		padding: rem-calc(6 12);
+
+		.bounty-item-photo {
+			width: 100%;
+			border-radius: rem-calc(6);
+		}
+	}
+}

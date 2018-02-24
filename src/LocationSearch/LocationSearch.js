@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import place_icon from './place_icon.svg';
 
 class LocationSearch extends Component {
 	constructor(props) {
@@ -9,9 +10,9 @@ class LocationSearch extends Component {
 		this.state = { dobDay: '', dobMonth: 0, dobYear: '', location: null };
 	}
 	componentDidMount(e) {
-		var options = { types: ['(cities)'], componentRestrictions: { country: 'au' } };
+		// var options = { types: ['(cities)'], componentRestrictions: { country: 'au' } };
 
-		var input = this.refs.search;
+		// var input = this.refs.search;
 		// BB.location
 		// 	? input.value = BB.location.Name
 		// 	: input.focus();
@@ -55,7 +56,7 @@ class LocationSearch extends Component {
 	render() {
 		return (
 			<div className="location-search">
-				<img className="location-icon" src="/Assets/img/place_icon.svg" alt="" />
+				<img className="location-icon" src={place_icon} alt="" />
 				<input ref="search" onFocus={this.handleLocationFocus} placeholder="Enter city/suburb" />
 				{!this.props.showSearchButton ? '' : <button>Search</button>}
 			</div>

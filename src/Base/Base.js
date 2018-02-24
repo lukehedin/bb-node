@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Link } from 'react-router-dom';
-import Header from "./Header/Header";
-import SubHeader from "./SubHeader/SubHeader";
-import Footer from "./Footer/Footer";
-import BountyResults from "./BountyResults/BountyResults";
+import Header from "../Header/Header";
+import SubHeader from "../SubHeader/SubHeader";
+import Footer from "../Footer/Footer";
+import BountyResults from "../BountyResults/BountyResults";
+import LoginForm from "../LoginForm/LoginForm";
 
 class Base extends Component {
   constructor(props) {
@@ -24,8 +25,8 @@ class Base extends Component {
 
             {/* <Route exact path="/" component={Welcome} /> */}
             <Route path="/results" component={BountyResults} />
-            {/* <Route path="/login" component={Login} />
-            <Route path="/bounty" component={Bounty} /> */}
+            <Route path="/login" component={LoginForm} />
+            {/*<Route path="/bounty" component={Bounty} /> */}
           </div>
           <Footer />
         </div>

@@ -1,0 +1,187 @@
+/* rem-calc function for easy pixel to rem conversion*/
+/*Moving watermark background*/
+.moving-background {
+  -webkit-transform: translateZ(0);
+  animation: animatedBackground 32s linear infinite; }
+
+@keyframes animatedBackground {
+  0% {
+    background-position: 0 0; }
+  100% {
+    background-position: 512px 0; } }
+
+body {
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  color: #676767; }
+  body h1 {
+    font-family: 'Luckiest Guy', cursive;
+    color: #f69;
+    letter-spacing: 0.0625rem;
+    font-weight: normal;
+    margin: 0; }
+  body .content {
+    max-width: 75rem;
+    margin: 0 auto;
+    width: 90%; }
+    @media only screen and (min-width: 480px) {
+      body .content {
+        width: 80%; } }
+  body input:focus,
+  body select:focus,
+  body textarea:focus,
+  body button:focus {
+    outline: none; }
+  body input[type=number]::-webkit-inner-spin-button,
+  body input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  body input, body button {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.125rem;
+    color: #676767; }
+  body .welcome-strip {
+    background-color: #f69;
+    background-image: url(../Assets//img/icon_background.svg);
+    background-repeat: repeat-x;
+    box-shadow: inset 0rem 0.3125rem 0.625rem 0rem rgba(0, 0, 0, 0.2);
+    height: 80vh;
+    min-height: 25rem;
+    max-height: 50rem;
+    width: 100%;
+    padding-top: 10vh; }
+    body .welcome-strip .content {
+      text-align: center; }
+  body .bounty-results {
+    padding: 1.5rem 0rem; }
+  body .button {
+    border: 0.0625rem solid;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    padding: 0.375rem;
+    color: #f69;
+    border-color: #f69;
+    background: #fff; }
+    body .button.dark-button {
+      color: #fff;
+      border-color: #fff;
+      background: #f69; }
+    body .button:hover {
+      color: #fff;
+      border-color: #fab;
+      background: #fab; }
+  body .site-header {
+    padding: 0.625rem 0rem;
+    display: flex; }
+    body .site-header .header-logo {
+      flex: 4;
+      cursor: pointer; }
+      body .site-header .header-logo img {
+        display: none;
+        width: 3.75rem;
+        height: 2.5rem; }
+        @media only screen and (min-width: 480px) {
+          body .site-header .header-logo img {
+            display: inline-block; } }
+      body .site-header .header-logo h1 {
+        vertical-align: top;
+        display: inline-block;
+        text-align: center;
+        font-size: 1.25rem;
+        line-height: 1.25rem;
+        width: 6.25rem; }
+      body .site-header .header-logo:hover {
+        opacity: 0.7; }
+    body .site-header .header-user {
+      flex: 5;
+      text-align: right; }
+      body .site-header .header-user button {
+        margin: 0.125rem;
+        margin-right: 0; }
+  body .site-subheader {
+    background-color: #f69;
+    background-image: url(../Assets//img/icon_background.svg);
+    background-repeat: repeat-x;
+    padding: 0.75rem 0rem; }
+    body .site-subheader .location-info {
+      font-size: 0.6875rem;
+      display: flex; }
+      body .site-subheader .location-info .location-search {
+        width: 100%; }
+        @media only screen and (min-width: 650px) {
+          body .site-subheader .location-info .location-search {
+            width: 50%; } }
+        @media only screen and (min-width: 950px) {
+          body .site-subheader .location-info .location-search {
+            width: 33.3333%; } }
+      body .site-subheader .location-info .spacer {
+        width: 100%;
+        display: none; }
+        @media only screen and (min-width: 650px) {
+          body .site-subheader .location-info .spacer {
+            width: 50%; } }
+        @media only screen and (min-width: 950px) {
+          body .site-subheader .location-info .spacer {
+            width: 33.3333%; } }
+        @media only screen and (min-width: 950px) {
+          body .site-subheader .location-info .spacer {
+            display: inline-block; } }
+      body .site-subheader .location-info .birthday-facts {
+        width: 100%;
+        display: none;
+        color: #fff; }
+        @media only screen and (min-width: 650px) {
+          body .site-subheader .location-info .birthday-facts {
+            width: 50%; } }
+        @media only screen and (min-width: 950px) {
+          body .site-subheader .location-info .birthday-facts {
+            width: 33.3333%; } }
+        @media only screen and (min-width: 950px) {
+          body .site-subheader .location-info .birthday-facts {
+            display: inline-block; } }
+        body .site-subheader .location-info .birthday-facts .title {
+          font-weight: bold; }
+        body .site-subheader .location-info .birthday-facts > div {
+          padding: 0rem 0.75rem; }
+  body footer {
+    border-top: 0.0625rem solid #f69;
+    margin-top: 0.625rem;
+    padding: 0.625rem 0rem; }
+  body .location-search {
+    display: flex;
+    width: 100%;
+    max-width: 37.5rem; }
+    body .location-search .location-icon {
+      height: 2.25rem;
+      width: 2.25rem; }
+    body .location-search input {
+      color: #fff;
+      flex-grow: 1;
+      width: 6.25rem;
+      background: none;
+      border: none;
+      border-bottom: 0.125rem solid #fff;
+      vertical-align: top;
+      margin: 0rem 0.75rem;
+      display: inline-block;
+      text-overflow: ellipsis; }
+    body .location-search button {
+      width: 5rem;
+      font-size: 1rem;
+      display: inline-block; }
+  body .bounty-results .bounty-item {
+    display: flex;
+    display: inline-block;
+    width: 100%; }
+    @media only screen and (min-width: 650px) {
+      body .bounty-results .bounty-item {
+        width: 50%; } }
+    @media only screen and (min-width: 950px) {
+      body .bounty-results .bounty-item {
+        width: 33.3333%; } }
+    body .bounty-results .bounty-item .bounty-item-inner {
+      padding: 0.375rem 0.75rem; }
+      body .bounty-results .bounty-item .bounty-item-inner .bounty-item-photo {
+        width: 100%;
+        border-radius: 0.375rem; }

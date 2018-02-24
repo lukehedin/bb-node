@@ -13,10 +13,15 @@ class BountyResults extends Component {
   componentDidMount() {
     var cmp = this;
     
-    Util.post("/api/getallbounty", {}, function(result) {
-      cmp.setState({
-        bountyResultItems: result
-      });
+    Util.post("/api/getallbounty", null, {
+      success: function(result) {
+        cmp.setState({
+          bountyResultItems: result
+        });
+      },
+      complete: function(){
+        //setloading false
+      }
     });
 	}
   render() {

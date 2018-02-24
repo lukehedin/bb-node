@@ -88,6 +88,16 @@ module.exports = {
         }
       });
 
+      // Model: log
+      db.models.log = sequelize.define('log', {
+        category: {
+          type: Sequelize.STRING
+        },
+        message: {
+          type: Sequelize.STRING
+        }
+      });
+
       //Associations
 
       // Associaton: Each organisation has many bounties

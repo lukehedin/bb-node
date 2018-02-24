@@ -23,8 +23,13 @@ class LoginForm extends Component {
     Util.post("/api/login", { 
       username: username,
       password: password
-    }, function(result) {
-      console.log(result);
+    }, {
+      success: function(result) {
+        //If successful, store JWT in localStorage
+        localStorage.setItem('bb-jwt', result.token);
+  
+        console.log(result);
+      }
     });
 	}
   render() {

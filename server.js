@@ -1,51 +1,63 @@
+// *** Dependencies ***
+
 const {createServer} = require('http');
 const express = require('express');
 const compression = require('compression');
 const path = require('path');
+ 
+const bodyParser = require('body-parser'); // bodyParser: used to get json params from POST apis
+const morgan = require('morgan'); // morgan: logging
 
-// bodyParser: used to get json params from POST apis
-const bodyParser = require('body-parser');
-// morgan: logging
-const morgan = require('morgan');
-// dotenv: So node can read the .env file (heroku already can)
-require('dotenv').config();
-// db: a file which holds all sequelise code
-var db = require('./db');
-// auth: a file which holds all authentication code
-var auth = require('./auth');
-auth.jwtSecret = process.env.JWT_SECRET;
+require('dotenv').config(); // dotenv: So node can read the .env file (heroku already can)
 
-//Port definition, comes from .env file
-const normalizePort = port => parseInt(port, 10);
-const PORT = normalizePort(process.env.PORT || 5000);
+// Custom external files
+var db = require('./db'); // db: a file which holds all sequelise code
+db.connect(true); //Connect to DB with sequelize. First param true for schema sync
+var auth = require('./auth'); // auth: a file which holds all authentication code
+auth.jwtSecret = process.env.JWT_SECRET; //Set auth jwtSecret to the one in the env file
 
-//Express definition function
+
+// *** Initialisation ***
+
 const app = express();
-
-// dev flag
 const dev = app.get('env') !== 'production';
-//Connect to DB with sequelize. First param true for schema sync
-db.connect(true);
 
 if(!dev) {
-    //If production build
     console.log('BBV2 - PRODUCTION');
     
-    //Defends against malicious attacks (by not saying what is powering the app)
-    app.disable('x-powered-by');
-    //Does some file compression
-    app.use(compression());
-    //Logs common activity (requests etc) but does not log errors as thoroughly
-    app.use(morgan('common'));
+    app.disable('x-powered-by'); //Defends against malicious attacks (by not saying what is powering the app)
+    app.use(compression()); //Does some file compression
+    app.use(morgan('common')); //Logs common activity (requests etc) but does not log errors as thoroughly
 } else {
-    //If dev build 
     console.log('BBV2 - DEVELOPMENT');
 
-    //Heavier logging in dev mode
-    app.use(morgan('dev'));    
+    app.use(morgan('dev'));  //Heavier logging in dev mode  
 }
 
-//API endpoints
+// *** API Endpoints ***
+
+// Quick error json response function
+const jsonErr = function(res, msg) {
+    db.models.log.create({ category: 'ERROR', message: msg });
+    
+    res.json({
+        success: false,
+        message: msg
+    });
+};
+
+//Any requests we don't recognise, go to default page
+app.use(express.static(path.resolve(__dirname, 'build')));
+
+//All requests are going to be handled by this function first
+app.use('*', (req, res, next) => {
+    // If the request URL begins with /api/ it is not a page/navigation request. It is a post for JSON data.
+    // The next() will send the request down this file to the next applicable endpoint.
+    // All other requests redirect to index. The client side browserrouter handles nav for SPA
+    req.baseUrl.startsWith('/api/')
+        ? next()
+        : res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
 
 app.use(bodyParser.json()) //Used to extract params from posts
 // **************************************************
@@ -63,26 +75,18 @@ app.use(bodyParser.json()) //Used to extract params from posts
                 if(isMatch) {
                     var token = auth.getJwt();
 
-                    // return the information including token as JSON
+                    // return the token as JSON
                     res.json({
-                        success: true,
-                        message: 'Enjoy your token!',
                         token: token
                     });
                 } else {
                     //Invalid password
-                    res.json({
-                        success: false,
-                        msg: "Invalid username or password"
-                    });
+                    jsonErr(res, "Invalid username or password.");
                 }
             });
         } else {
             //Invalid username
-            res.json({
-                success: false,
-                msg: "Invalid username or password"
-            });
+            jsonErr(res, "Invalid username or password.");
         }
     });
 })
@@ -91,7 +95,7 @@ app.use(bodyParser.json()) //Used to extract params from posts
 // **************************************************
 .use(function(req, res, next){
     // check header or post parameters for token
-    var token = req.body.token || req.headers['x-access-token'];
+    var token = req.body.token || req.headers['bb-jwt'];
 
     if (token) {
         // decode token
@@ -102,32 +106,26 @@ app.use(bodyParser.json()) //Used to extract params from posts
             req.decodedJwt = decodedJwt;    
             next();
         } else{
-            res.json({ 
-                success: false, 
-                message: 'Failed to authenticate token.'
-            });
+            jsonErr(res, 'Failed to authenticate token.');
         }
     } else {
         // if there is no token return an error
-        return res.status(403).send({ 
-            success: false, 
-            message: 'No token provided.' 
-        });
+        jsonErr(res, 'No token provided.');
     }
 })
 .post('/api/getallbounty', function (req, res) {
     db.models.bounty.findAll().then(z => {
         res.send(z);
     });
+})
+.post('/api/getstarredbounty', function(req, res){
+    var lol = decodedJwt;
+    //LH: attempt to use decodedJwt 
 });
 
-
-//Any requests we don't recognise, go to default page
-app.use(express.static(path.resolve(__dirname, 'build')));
-//All requests are going to be handled by node. Send index by default.
-app.use('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-});
+//Port definition, comes from .env file
+const normalizePort = port => parseInt(port, 10);
+const PORT = normalizePort(process.env.PORT || 5000);
 
 //require('http') has this createServer fn
 const server = createServer(app);

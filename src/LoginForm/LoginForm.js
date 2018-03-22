@@ -8,17 +8,19 @@ class LoginForm extends Component {
     super(props);
 
 		this.handleLoginClick = this.handleLoginClick.bind(this);
+		this.inputkeyDown = this.inputkeyDown.bind(this);
     
     this.state = {
       bountyResultItems: []
     };
-	}
+  }
+  inputkeyDown(e){
+    debugger;
+    if(e.keyCode === 13) this.handleLoginClick();
+  }
 	handleLoginClick() {
     var username = this.refs.username.value;
     var password = this.refs.password.value;
-
-    console.log('username');
-    console.log('password');
 
     Util.post("/api/login", { 
       username: username,
@@ -39,8 +41,8 @@ class LoginForm extends Component {
         <br/>
         ---
         <br />
-        <input ref="username" type="text" placeholder="Enter username" />
-        <input ref="password" type="password" placeholder="Enter password" />
+        <input ref="username" onKeyDown={this.inputkeyDown} type="text" placeholder="Enter username" />
+        <input ref="password" onKeyDown={this.inputkeyDown} type="password" placeholder="Enter password" />
         <Button text="Log In" onClick={this.handleLoginClick}/>
         <Link to="/forgotten">I forgot my password</Link>
       </div>

@@ -37,8 +37,8 @@ if(!dev) {
 // *** API Endpoints ***
 
 // Quick error json response function
-const jsonErr = function(res, msg) {
-    db.models.log.create({ category: 'ERROR', message: msg });
+const jsonErr = function(res, msg, serverMsg) {
+    db.models.log.create({ category: 'ERROR', message: msg + " - " + serverMsg });
     
     res.json({
         success: false,
@@ -77,16 +77,19 @@ app.use(bodyParser.json()) //Used to extract params from posts
 
                     // return the token as JSON
                     res.json({
-                        token: token
+                        token: token,
+                        username: z.username,
+                        firstName: z.firstName,
+                        lastName: z.firstName
                     });
                 } else {
                     //Invalid password
-                    jsonErr(res, "Invalid username or password.");
+                    jsonErr(res, "Invalid username or password.", "Invalid password for username: " + z.username);
                 }
             });
         } else {
             //Invalid username
-            jsonErr(res, "Invalid username or password.");
+            jsonErr(res, "Invalid username or password.", "Invalid username: " + username);
         }
     });
 })

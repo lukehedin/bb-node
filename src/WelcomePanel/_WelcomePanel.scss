@@ -1,0 +1,15 @@
+.welcome-strip {
+    background-color: $bounty-pink;
+    background-image: url(../Assets//img/icon_background.svg);
+    background-repeat: repeat-x;
+    box-shadow: inset rem-calc(0 5 10 0) rgba(0,0,0,0.2);
+    height: 80vh;
+    min-height: rem-calc(400);
+    max-height: rem-calc(800);
+    width: 100%;
+    padding-top: 10vh;
+
+    .content {
+        text-align: center;
+    }
+}

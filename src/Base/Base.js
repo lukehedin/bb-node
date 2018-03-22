@@ -5,6 +5,7 @@ import SubHeader from "../SubHeader/SubHeader";
 import Footer from "../Footer/Footer";
 import BountyResults from "../BountyResults/BountyResults";
 import LoginForm from "../LoginForm/LoginForm";
+import WelcomePanel from "../WelcomePanel/WelcomePanel";
 
 class Base extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class Base extends Component {
             {/* <Link to="/contact">Contact</Link>
             <Link to="/projects">Projects</Link> */}
 
-            {/* <Route exact path="/" component={Welcome} /> */}
+            <Route exact path="/" component={WelcomePanel} />
             <Route path="/results" component={BountyResults} />
             <Route path="/login" component={LoginForm} />
             {/*<Route path="/bounty" component={Bounty} /> */}

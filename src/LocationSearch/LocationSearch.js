@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import place_icon from './place_icon.svg';
+import Util from '../util';
 
 class LocationSearch extends Component {
 	constructor(props) {
@@ -10,6 +11,8 @@ class LocationSearch extends Component {
 		this.state = { dobDay: '', dobMonth: 0, dobYear: '', location: null };
 	}
 	componentDidMount(e) {
+		Util.loadGoogleMapsAndPlaces();
+
 		// var options = { types: ['(cities)'], componentRestrictions: { country: 'au' } };
 
 		// var input = this.refs.search;
@@ -41,10 +44,6 @@ class LocationSearch extends Component {
 		// 		}
 		// 	});
 		// });
-	}
-	componentWillUnmount() {
-		// Make sure to remove the DOM listener when the component is unmounted.
-		this.nv.removeEventListener("nv-enter", this.handleNvEnter);
 	}
 	handleLocationFocus(e) {
 		//Only here to erase placeID on click

@@ -34,6 +34,10 @@ body {
 		outline: none;
 	}
 
+	::placeholder {
+		color: $bounty-white;
+	}
+
 	//No number arrow spinners
 	input[type=number]::-webkit-inner-spin-button,
 	input[type=number]::-webkit-outer-spin-button {
@@ -47,22 +51,6 @@ body {
 		color: $bounty-darkgrey;
 	}
 
-	.welcome-strip {
-		background-color: $bounty-pink;
-		background-image: url(../Assets//img/icon_background.svg);
-		background-repeat: repeat-x;
-		box-shadow: inset rem-calc(0 5 10 0) rgba(0,0,0,0.2);
-		height: 80vh;
-		min-height: rem-calc(400);
-		max-height: rem-calc(800);
-		width: 100%;
-		padding-top: 10vh;
-
-		.content {
-			text-align: center;
-		}
-	}
-
 	.bounty-results {
 		padding: rem-calc(24 0);
     }
@@ -73,4 +61,6 @@ body {
     @import '../Footer/_Footer.scss';
     @import '../LocationSearch/_LocationSearch.scss';
     @import '../BountyResults/_BountyResults.scss';
+    @import '../WelcomePanel/_WelcomePanel.scss';
+    @import '../LoginForm/_LoginForm.scss';
 }

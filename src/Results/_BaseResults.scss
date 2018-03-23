@@ -1,0 +1,5 @@
+.bounty-results {
+    padding: rem-calc(24 0);
+    
+    @import './BountyResultItem/_BountyResultItem.scss';
+}

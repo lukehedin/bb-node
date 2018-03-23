@@ -4,14 +4,12 @@
 
 body {
 	margin: 0;
-	font-family: 'Raleway', sans-serif;
-    font-size: rem-calc(12);
-	color: $bounty-darkgrey;
-
+	font-family: 'Roboto', sans-serif;
+  	font-size: rem-calc(12);
+  	color: $bounty-darkgrey;
+	  
 	h1 {
-		font-family: 'Luckiest Guy', cursive;
 		color: $bounty-pink;
-		letter-spacing: rem-calc(1);
 		font-weight: normal;
 		margin: 0;
 	}
@@ -46,21 +44,41 @@ body {
 	}
 
 	input, button {
-		font-family: 'Raleway', sans-serif;
+		font-family: 'Roboto', sans-serif;
 		font-size: $text-small;
 		color: $bounty-darkgrey;
 	}
 
-	.bounty-results {
-		padding: rem-calc(24 0);
-    }
+	input {
+		height: rem-calc(30);
+	}
 
-    @import '../Button/_Button.scss';
-    @import '../Header/_Header.scss';
-    @import '../SubHeader/_SubHeader.scss';
-    @import '../Footer/_Footer.scss';
-    @import '../LocationSearch/_LocationSearch.scss';
-    @import '../BountyResults/_BountyResults.scss';
-    @import '../WelcomePanel/_WelcomePanel.scss';
-    @import '../LoginForm/_LoginForm.scss';
+	a {
+		color: $bounty-pink;
+	}
+
+	.container-content{
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+
+		.scroll-content{
+			flex-grow: 1;
+			overflow-y: scroll;
+			overflow: overlay;
+		}
+	}
 }
+
+@import '../LoadMask/_LoadMask.scss';
+@import '../Button/_Button.scss';
+@import '../FormInput/_FormInput.scss';
+@import '../BountyTypeIcon/_BountyTypeIcon.scss';
+@import '../LocationSearch/_LocationSearch.scss';
+@import '../AppHeader/_AppHeader.scss';
+@import '../AppFooter/_AppFooter.scss';
+@import '../Welcome/_BaseWelcome.scss';
+@import '../Authentication/_BaseAuthentication.scss';
+@import '../Results/_BaseResults.scss';
+@import '../Bounty/_BaseBounty.scss';
+@import '../Results/BountyResultItem/_BountyResultItem.scss';

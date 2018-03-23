@@ -1,0 +1,25 @@
+.authentication-container{
+    position: relative;
+    padding-bottom: rem-calc(64);
+
+    form {
+        width: 80%;
+        max-width: rem-calc(320);
+        margin: rem-calc(16) auto;
+        text-align: center;
+
+        input {
+            width: 100%;
+        }
+
+        .auth-switch-msg {
+            padding-top: rem-calc(32);
+        }
+
+        .form-error {
+            color: $bounty-error-red;
+            width: 100%;
+            padding: rem-calc(8 0);
+        }
+    }
+}

@@ -1,5 +1,4 @@
 /* rem-calc function for easy pixel to rem conversion*/
-/*Moving watermark background*/
 .moving-background {
   -webkit-transform: translateZ(0);
   animation: animatedBackground 32s linear infinite; }
@@ -10,15 +9,37 @@
   100% {
     background-position: 512px 0; } }
 
+@keyframes fadein {
+  0% {
+    opacity: 0.9; }
+  100% {
+    opacity: 1; } }
+
+@keyframes fadeout {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0.9; } }
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
 body {
   margin: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.75rem;
   color: #676767; }
   body h1 {
-    font-family: 'Luckiest Guy', cursive;
     color: #f69;
-    letter-spacing: 0.0625rem;
     font-weight: normal;
     margin: 0; }
   body .content {
@@ -40,150 +61,360 @@ body {
     -webkit-appearance: none;
     margin: 0; }
   body input, body button {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.125rem;
     color: #676767; }
-  body .bounty-results {
-    padding: 1.5rem 0rem; }
-  body .button {
-    border: 0.0625rem solid;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    padding: 0.375rem;
-    color: #f69;
-    border-color: #f69;
-    background: #fff; }
-    body .button.dark-button {
-      color: #fff;
-      border-color: #fff;
-      background: #f69; }
-    body .button:hover {
-      color: #fff;
-      border-color: #fab;
-      background: #fab; }
-  body .site-header {
-    padding: 0.625rem 0rem;
-    display: flex; }
-    body .site-header .header-logo {
-      flex: 4;
-      cursor: pointer; }
-      body .site-header .header-logo img {
-        display: none;
-        width: 3.75rem;
-        height: 2.5rem; }
-        @media only screen and (min-width: 480px) {
-          body .site-header .header-logo img {
-            display: inline-block; } }
-      body .site-header .header-logo h1 {
-        vertical-align: top;
-        display: inline-block;
-        text-align: center;
-        font-size: 1.25rem;
-        line-height: 1.25rem;
-        width: 6.25rem; }
-      body .site-header .header-logo:hover {
-        opacity: 0.7; }
-    body .site-header .header-user {
-      flex: 5;
-      text-align: right; }
-      body .site-header .header-user button {
-        margin: 0.125rem;
-        margin-right: 0; }
-  body .site-subheader {
-    background-color: #f69;
-    background-image: url(../Assets//img/icon_background.svg);
-    background-repeat: repeat-x;
-    padding: 0.75rem 0rem; }
-    body .site-subheader .location-info {
-      font-size: 0.6875rem;
-      display: flex; }
-      body .site-subheader .location-info .location-search {
-        width: 100%; }
-        @media only screen and (min-width: 650px) {
-          body .site-subheader .location-info .location-search {
-            width: 50%; } }
-        @media only screen and (min-width: 950px) {
-          body .site-subheader .location-info .location-search {
-            width: 33.3333%; } }
-      body .site-subheader .location-info .spacer {
-        width: 100%;
-        display: none; }
-        @media only screen and (min-width: 650px) {
-          body .site-subheader .location-info .spacer {
-            width: 50%; } }
-        @media only screen and (min-width: 950px) {
-          body .site-subheader .location-info .spacer {
-            width: 33.3333%; } }
-        @media only screen and (min-width: 950px) {
-          body .site-subheader .location-info .spacer {
-            display: inline-block; } }
-      body .site-subheader .location-info .birthday-facts {
-        width: 100%;
-        display: none;
-        color: #fff; }
-        @media only screen and (min-width: 650px) {
-          body .site-subheader .location-info .birthday-facts {
-            width: 50%; } }
-        @media only screen and (min-width: 950px) {
-          body .site-subheader .location-info .birthday-facts {
-            width: 33.3333%; } }
-        @media only screen and (min-width: 950px) {
-          body .site-subheader .location-info .birthday-facts {
-            display: inline-block; } }
-        body .site-subheader .location-info .birthday-facts .title {
-          font-weight: bold; }
-        body .site-subheader .location-info .birthday-facts > div {
-          padding: 0rem 0.75rem; }
-  body footer {
-    border-top: 0.0625rem solid #f69;
-    margin-top: 0.625rem;
-    padding: 0.625rem 0rem; }
-  body .location-search {
+  body input {
+    height: 1.875rem; }
+  body a {
+    color: #f69; }
+  body .container-content {
+    height: 100vh;
     display: flex;
-    width: 100%;
-    max-width: 37.5rem; }
-    body .location-search .location-icon {
-      height: 2.25rem;
-      width: 2.25rem; }
-    body .location-search input {
-      color: #fff;
+    flex-direction: column; }
+    body .container-content .scroll-content {
       flex-grow: 1;
-      width: 6.25rem;
-      background: none;
-      border: none;
-      border-bottom: 0.125rem solid #fff;
-      vertical-align: top;
-      margin: 0rem 0.75rem;
+      overflow-y: scroll;
+      overflow: overlay; }
+
+.load-mask {
+  height: 100vh;
+  width: 100vw;
+  position: relative; }
+  .load-mask .load-mask-inner {
+    position: absolute;
+    margin: 0 auto;
+    text-align: center;
+    color: #f69;
+    font-size: 1.125rem;
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: 25%; }
+    .load-mask .load-mask-inner .loader-circle {
       display: inline-block;
-      text-overflow: ellipsis; }
-    body .location-search button {
-      width: 5rem;
-      font-size: 1rem;
-      display: inline-block; }
-  body .bounty-results .bounty-item {
+      border: 0.5rem solid #fff;
+      border-radius: 50%;
+      border-top: 0.5rem solid #f69;
+      width: 7.5rem;
+      height: 7.5rem;
+      -webkit-animation: spin 0.8s linear infinite;
+      /* Safari */
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 1rem; }
+
+.button {
+  border: 0.0625rem solid;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  padding: 0.375rem;
+  color: #f69;
+  border-color: #f69;
+  background: #fff; }
+  .button.dark-button {
+    color: #fff;
+    border-color: #fff;
+    background: #f69; }
+  .button:hover {
+    color: #fff;
+    border-color: #fab;
+    background: #fab; }
+
+.form-input {
+  margin: 0.5rem 0rem 1rem 0rem; }
+  .form-input .form-input-label {
+    text-align: left; }
+
+.bounty-type-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%; }
+
+.location-search {
+  display: flex;
+  width: 100%;
+  max-width: 37.5rem; }
+  .location-search .location-icon {
+    height: 2.25rem;
+    width: 2.25rem; }
+  .location-search input {
+    color: #fff;
+    flex-grow: 1;
+    width: 6.25rem;
+    background: none;
+    border: none;
+    border-bottom: 0.125rem solid #fff;
+    vertical-align: top;
+    margin: 0rem 0.75rem;
+    display: inline-block;
+    text-overflow: ellipsis; }
+  .location-search button {
+    width: 5rem;
+    font-size: 1rem;
+    display: inline-block; }
+
+.app-header .upper-header {
+  display: flex;
+  padding: 0.5rem 0rem; }
+  .app-header .upper-header .header-logo {
+    flex: 4;
+    cursor: pointer; }
+    .app-header .upper-header .header-logo img {
+      display: none;
+      width: 3.75rem;
+      height: 2.5rem; }
+      @media only screen and (min-width: 480px) {
+        .app-header .upper-header .header-logo img {
+          display: inline-block; } }
+    .app-header .upper-header .header-logo h1 {
+      font-family: 'Luckiest Guy', cursive;
+      vertical-align: top;
+      display: inline-block;
+      text-align: center;
+      font-size: 1.125rem;
+      line-height: 1.25rem;
+      width: 6.25rem; }
+    .app-header .upper-header .header-logo:hover {
+      opacity: 0.7; }
+  .app-header .upper-header .header-user {
+    flex: 5;
+    text-align: right; }
+    .app-header .upper-header .header-user .user-header-info {
+      display: inline-block;
+      padding-right: 0.5rem; }
+    .app-header .upper-header .header-user button {
+      margin: 0.125rem;
+      margin-right: 0; }
+
+.app-header .app-subheader {
+  background-color: #f69;
+  background-image: url(../Assets//img/icon_background.svg);
+  background-repeat: repeat-x;
+  padding: 0.5rem 0rem; }
+  .app-header .app-subheader .lower-header {
+    font-size: 0.6875rem;
+    display: flex; }
+    .app-header .app-subheader .lower-header .location-search {
+      width: 100%; }
+      @media only screen and (min-width: 650px) {
+        .app-header .app-subheader .lower-header .location-search {
+          width: 50%; } }
+      @media only screen and (min-width: 1024px) {
+        .app-header .app-subheader .lower-header .location-search {
+          width: 33.3333%; } }
+    .app-header .app-subheader .lower-header .spacer {
+      width: 100%;
+      display: none; }
+      @media only screen and (min-width: 650px) {
+        .app-header .app-subheader .lower-header .spacer {
+          width: 50%; } }
+      @media only screen and (min-width: 1024px) {
+        .app-header .app-subheader .lower-header .spacer {
+          width: 33.3333%; } }
+      @media only screen and (min-width: 950px) {
+        .app-header .app-subheader .lower-header .spacer {
+          display: inline-block; } }
+    .app-header .app-subheader .lower-header .birthday-facts {
+      width: 100%;
+      display: none;
+      color: #fff; }
+      @media only screen and (min-width: 650px) {
+        .app-header .app-subheader .lower-header .birthday-facts {
+          width: 50%; } }
+      @media only screen and (min-width: 1024px) {
+        .app-header .app-subheader .lower-header .birthday-facts {
+          width: 33.3333%; } }
+      @media only screen and (min-width: 950px) {
+        .app-header .app-subheader .lower-header .birthday-facts {
+          display: inline-block; } }
+      .app-header .app-subheader .lower-header .birthday-facts .title {
+        font-weight: bold; }
+      .app-header .app-subheader .lower-header .birthday-facts > div {
+        padding: 0rem 0.75rem; }
+
+.site-footer {
+  border-top: 0.0625rem solid #f69;
+  margin-top: 0.625rem;
+  padding: 0.625rem 0rem; }
+
+.welcome-panel {
+  background-color: #f69;
+  background-image: url(../Assets//img/icon_background.svg);
+  background-repeat: repeat-x;
+  box-shadow: inset 0rem 0.3125rem 0.625rem 0rem rgba(0, 0, 0, 0.2);
+  height: 80vh;
+  min-height: 25rem;
+  max-height: 50rem;
+  width: 100%;
+  padding-top: 10vh; }
+  .welcome-panel .location-info {
+    position: relative;
+    margin: 0 auto;
+    max-width: 37.5rem; }
+
+.authentication-container {
+  position: relative;
+  padding-bottom: 4rem; }
+  .authentication-container form {
+    width: 80%;
+    max-width: 20rem;
+    margin: 1rem auto;
+    text-align: center; }
+    .authentication-container form input {
+      width: 100%; }
+    .authentication-container form .auth-switch-msg {
+      padding-top: 2rem; }
+    .authentication-container form .form-error {
+      color: #ff0000;
+      width: 100%;
+      padding: 0.5rem 0rem; }
+
+.bounty-results {
+  padding: 1.5rem 0rem; }
+  .bounty-results .bounty-item {
     display: flex;
     display: inline-block;
-    width: 100%; }
-    @media only screen and (min-width: 650px) {
-      body .bounty-results .bounty-item {
-        width: 50%; } }
-    @media only screen and (min-width: 950px) {
-      body .bounty-results .bounty-item {
-        width: 33.3333%; } }
-    body .bounty-results .bounty-item .bounty-item-inner {
-      padding: 0.375rem 0.75rem; }
-      body .bounty-results .bounty-item .bounty-item-inner .bounty-item-photo {
-        width: 100%;
-        border-radius: 0.375rem; }
-  body .welcome-strip {
-    background-color: #f69;
-    background-image: url(../Assets//img/icon_background.svg);
-    background-repeat: repeat-x;
-    box-shadow: inset 0rem 0.3125rem 0.625rem 0rem rgba(0, 0, 0, 0.2);
-    height: 80vh;
-    min-height: 25rem;
-    max-height: 50rem;
     width: 100%;
-    padding-top: 10vh; }
-    body .welcome-strip .content {
-      text-align: center; }
+    padding-bottom: 0.5rem; }
+    @media only screen and (min-width: 650px) {
+      .bounty-results .bounty-item {
+        width: 50%; } }
+    @media only screen and (min-width: 1024px) {
+      .bounty-results .bounty-item {
+        width: 33.3333%; } }
+    .bounty-results .bounty-item .bounty-item-inner {
+      padding: 0.375rem 0.75rem;
+      animation: fadein 0.1s linear; }
+      .bounty-results .bounty-item .bounty-item-inner a {
+        text-decoration: none; }
+      .bounty-results .bounty-item .bounty-item-inner:hover {
+        animation: fadeout 0.2s forwards; }
+      .bounty-results .bounty-item .bounty-item-inner .bounty-item-photo {
+        width: 100%;
+        border-radius: 0.375rem;
+        height: 9.375rem;
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        margin-bottom: 0.25rem; }
+        .bounty-results .bounty-item .bounty-item-inner .bounty-item-photo .bounty-photo-label {
+          position: absolute;
+          background-color: #fff;
+          border-radius: 0.25rem;
+          padding: 0.25rem; }
+        .bounty-results .bounty-item .bounty-item-inner .bounty-item-photo .bounty-org-name {
+          position: absolute;
+          bottom: 0.25rem;
+          left: 0.25rem;
+          color: #676767; }
+          .bounty-results .bounty-item .bounty-item-inner .bounty-item-photo .bounty-org-name .bounty-km {
+            display: inline-block;
+            padding-left: 0.25rem;
+            color: #9a9a9a; }
+        .bounty-results .bounty-item .bounty-item-inner .bounty-item-photo .bounty-type-icon-container {
+          position: absolute;
+          bottom: 0.25rem;
+          right: 0.375rem;
+          display: flex; }
+          .bounty-results .bounty-item .bounty-item-inner .bounty-item-photo .bounty-type-icon-container .bounty-type-icon {
+            border: 0.25rem solid white;
+            margin: 0rem -0.125rem; }
+      .bounty-results .bounty-item .bounty-item-inner .bounty-item-label {
+        display: flex; }
+        .bounty-results .bounty-item .bounty-item-inner .bounty-item-label h1 {
+          font-size: 1.125rem;
+          display: inline-block;
+          flex-grow: 1;
+          text-decoration: none; }
+        .bounty-results .bounty-item .bounty-item-inner .bounty-item-label .mini-labels-area {
+          text-transform: uppercase; }
+          .bounty-results .bounty-item .bounty-item-inner .bounty-item-label .mini-labels-area .bounty-mini-label {
+            display: inline-block;
+            background-color: #f69;
+            color: #fff;
+            border-radius: 0.25rem;
+            padding: 0.25rem;
+            font-size: 0.6875rem;
+            margin-right: 0.25rem; }
+            .bounty-results .bounty-item .bounty-item-inner .bounty-item-label .mini-labels-area .bounty-mini-label.rating {
+              background-color: #fff;
+              color: #f69; }
+
+.bounty-detail-container .bounty-cover-image {
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  height: 12.5rem; }
+
+.bounty-detail-container .social-button {
+  height: 2rem;
+  width: 2rem; }
+
+.bounty-item {
+  display: flex;
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 0.5rem; }
+  @media only screen and (min-width: 650px) {
+    .bounty-item {
+      width: 50%; } }
+  @media only screen and (min-width: 1024px) {
+    .bounty-item {
+      width: 33.3333%; } }
+  .bounty-item .bounty-item-inner {
+    padding: 0.375rem 0.75rem;
+    animation: fadein 0.1s linear; }
+    .bounty-item .bounty-item-inner a {
+      text-decoration: none; }
+    .bounty-item .bounty-item-inner:hover {
+      animation: fadeout 0.2s forwards; }
+    .bounty-item .bounty-item-inner .bounty-item-photo {
+      width: 100%;
+      border-radius: 0.375rem;
+      height: 9.375rem;
+      background-position: center;
+      background-size: cover;
+      position: relative;
+      margin-bottom: 0.25rem; }
+      .bounty-item .bounty-item-inner .bounty-item-photo .bounty-photo-label {
+        position: absolute;
+        background-color: #fff;
+        border-radius: 0.25rem;
+        padding: 0.25rem; }
+      .bounty-item .bounty-item-inner .bounty-item-photo .bounty-org-name {
+        position: absolute;
+        bottom: 0.25rem;
+        left: 0.25rem;
+        color: #676767; }
+        .bounty-item .bounty-item-inner .bounty-item-photo .bounty-org-name .bounty-km {
+          display: inline-block;
+          padding-left: 0.25rem;
+          color: #9a9a9a; }
+      .bounty-item .bounty-item-inner .bounty-item-photo .bounty-type-icon-container {
+        position: absolute;
+        bottom: 0.25rem;
+        right: 0.375rem;
+        display: flex; }
+        .bounty-item .bounty-item-inner .bounty-item-photo .bounty-type-icon-container .bounty-type-icon {
+          border: 0.25rem solid white;
+          margin: 0rem -0.125rem; }
+    .bounty-item .bounty-item-inner .bounty-item-label {
+      display: flex; }
+      .bounty-item .bounty-item-inner .bounty-item-label h1 {
+        font-size: 1.125rem;
+        display: inline-block;
+        flex-grow: 1;
+        text-decoration: none; }
+      .bounty-item .bounty-item-inner .bounty-item-label .mini-labels-area {
+        text-transform: uppercase; }
+        .bounty-item .bounty-item-inner .bounty-item-label .mini-labels-area .bounty-mini-label {
+          display: inline-block;
+          background-color: #f69;
+          color: #fff;
+          border-radius: 0.25rem;
+          padding: 0.25rem;
+          font-size: 0.6875rem;
+          margin-right: 0.25rem; }
+          .bounty-item .bounty-item-inner .bounty-item-label .mini-labels-area .bounty-mini-label.rating {
+            background-color: #fff;
+            color: #f69; }

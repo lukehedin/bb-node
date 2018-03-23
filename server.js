@@ -10,17 +10,17 @@ const morgan = require('morgan'); // morgan: logging
 
 require('dotenv').config(); // dotenv: So node can read the .env file (heroku already can)
 
-// Custom external files
-var db = require('./db'); // db: a file which holds all sequelise code
-db.connect(true); //Connect to DB with sequelize. First param true for schema sync
-var auth = require('./auth'); // auth: a file which holds all authentication code
-auth.jwtSecret = process.env.JWT_SECRET; //Set auth jwtSecret to the one in the env file
-
-
 // *** Initialisation ***
-
 const app = express();
 const dev = app.get('env') !== 'production';
+
+// Custom external files
+var mongo = require('./mongo'); // the db file which holds all mongo code
+mongo.isDev = dev; // let mongo know if we are in dev (for logging purposes)
+mongo.log('APPLICATION', 'MongoDB Successfully Connected');
+
+var auth = require('./auth'); // auth: a file which holds all authentication code
+auth.jwtSecret = process.env.JWT_SECRET; //Set auth jwtSecret to the one in the env file
 
 if(!dev) {
     console.log('BBV2 - PRODUCTION');
@@ -38,7 +38,7 @@ if(!dev) {
 
 // Quick error json response function
 const jsonErr = function(res, msg, serverMsg) {
-    db.models.log.create({ category: 'ERROR', message: msg + " - " + serverMsg });
+    mongo.log('ERROR', msg, serverMsg);
     
     res.json({
         success: false,
@@ -60,31 +60,32 @@ app.use('*', (req, res, next) => {
 });
 
 app.use(bodyParser.json()) //Used to extract params from posts
-// **************************************************
-// The only endpoint allowed ABOVE the JWT middleware
-// **************************************************
+
+// ***********************************************************************
+// Endpoints below are above the JWT middleware and DO NOT require JWT
+// ***********************************************************************
 .post('/api/login', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    db.models.user.findOne({ 
+    mongo.findOne('users', {
         where: { username: username }
-    }).then(z => {
-        if(z){
-            auth.comparePassword(password, z.password, function(isMatch) {
+    }, dbUser => {
+        if(dbUser) {
+            auth.comparePassword(password, dbUser.password, function(isMatch) {
                 if(isMatch) {
                     var token = auth.getJwt();
 
                     // return the token as JSON
                     res.json({
                         token: token,
-                        username: z.username,
-                        firstName: z.firstName,
-                        lastName: z.firstName
+                        username: dbUser.username,
+                        firstName: dbUser.firstName,
+                        lastName: dbUser.firstName
                     });
                 } else {
                     //Invalid password
-                    jsonErr(res, "Invalid username or password.", "Invalid password for username: " + z.username);
+                    jsonErr(res, "Invalid username or password.", "Invalid password for username: " + dbUser.username);
                 }
             });
         } else {
@@ -93,9 +94,14 @@ app.use(bodyParser.json()) //Used to extract params from posts
         }
     });
 })
-// **************************************************
-// JWT middleware. Every request must check JWT token
-// **************************************************
+.post('/api/getallbounty', function (req, res) {
+    mongo.find('bounty', {}, data => {
+        res.send(data);
+    });
+})
+// ***************************************************************
+// JWT middleware. All requests below this point will require JWT
+// ****************************************************************
 .use(function(req, res, next){
     // check header or post parameters for token
     var token = req.body.token || req.headers['bb-jwt'];
@@ -115,11 +121,6 @@ app.use(bodyParser.json()) //Used to extract params from posts
         // if there is no token return an error
         jsonErr(res, 'No token provided.');
     }
-})
-.post('/api/getallbounty', function (req, res) {
-    db.models.bounty.findAll().then(z => {
-        res.send(z);
-    });
 })
 .post('/api/getstarredbounty', function(req, res){
     var lol = decodedJwt;

@@ -1,7 +1,7 @@
 $bounty-pink: #f69;
 $bounty-lightpink: #fab;
 $bounty-white: #fff;
-$bounty-grey: #ababab;
+$bounty-grey: #9a9a9a;
 $bounty-darkgrey: #676767;
 
 $bounty-type-red: #ef4d4d;
@@ -10,6 +10,8 @@ $bounty-type-green: #67b456;
 $bounty-type-blue: #4c8ea3;
 $bounty-type-navy: #403b90;
 $bounty-type-purple: #403b90;
+
+$bounty-error-red: #ff0000;
 
 //Device media queries
 //tiny-device by default - mobile first design
@@ -33,7 +35,7 @@ $text-huge: rem-calc(72);
 		width: 50%;
 	}
 
-	@media #{$device-large} {
+	@media #{$device-huge} {
 		width: 33.3333%;
 	}
 }

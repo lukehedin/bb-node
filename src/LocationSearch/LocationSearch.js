@@ -1,49 +1,25 @@
 import React, { Component } from 'react';
-import place_icon from './place_icon.svg';
-import Util from '../util';
+import Google from '../Google';
 
-class LocationSearch extends Component {
+import imgPlaceMarker from './placeMarker.svg';
+import Button from '../Button/Button';
+
+export default  class LocationSearch extends Component {
 	constructor(props) {
 		super(props);
 		
 		this.handleLocationFocus = this.handleLocationFocus.bind(this);
+		this.handleLocationBlur = this.handleLocationBlur.bind(this);
 
 		this.state = { dobDay: '', dobMonth: 0, dobYear: '', location: null };
 	}
 	componentDidMount(e) {
-		Util.loadGoogleMapsAndPlaces();
+        var input = this.refs.search;
+        Google.autocomplete(input, (place) => {
+            this.props.onPlaceChange(place);
+        });
 
-		// var options = { types: ['(cities)'], componentRestrictions: { country: 'au' } };
-
-		// var input = this.refs.search;
-		// BB.location
-		// 	? input.value = BB.location.Name
-		// 	: input.focus();
-
-		// var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-		// google.maps.event.addListener(autocomplete, 'place_changed', function () {
-		// 	var address = autocomplete.getPlace();
-
-		// 	//BB.setLoading(e.target, true);
-
-		// 	BB.post('Session/SetLocation', {
-		// 		location: {
-		// 			PlaceId: address.place_id,
-		// 			Name: address.name,
-		// 			Latitude: address.geometry.location.lat(),
-		// 			Longitude: address.geometry.location.lng()
-		// 		}
-		// 	}, {
-		// 		success: function (data) {
-		// 			BB.setLocation(data);
-		// 			window.location.href = '/Results';
-		// 		},
-		// 		complete: function (data) {
-		// 			//BB.setLoading(e.target, false);
-		// 		}
-		// 	});
-		// });
+        if(!this.props.currentLocation) input.focus();
 	}
 	handleLocationFocus(e) {
 		//Only here to erase placeID on click
@@ -52,15 +28,26 @@ class LocationSearch extends Component {
 			location: null
 		});
 	}
+	handleLocationBlur(e){
+		if(this.props.currentLocation) e.target.value = this.props.currentLocation.name;
+	}
 	render() {
+        let value = this.props.currentLocation
+            ? this.props.currentLocation.name
+            : '';
+        
 		return (
 			<div className="location-search">
-				<img className="location-icon" src={place_icon} alt="" />
-				<input ref="search" onFocus={this.handleLocationFocus} placeholder="Enter city/suburb" />
-				{!this.props.showSearchButton ? '' : <button>Search</button>}
+				<img className="location-icon" src={imgPlaceMarker} alt="" />
+				<input ref="search" 
+				onFocus={this.handleLocationFocus} 
+				onBlur={this.handleLocationBlur}
+				placeholder="Enter city/suburb" 
+				defaultValue={value} />
+				{!this.props.showSearchButton 
+					? '' 
+					: <Button text="Search" />}
 			</div>
 		);
 	}
 }
-
-export default LocationSearch;

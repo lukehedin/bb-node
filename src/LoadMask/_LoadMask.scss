@@ -1,0 +1,29 @@
+.load-mask{
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+
+    .load-mask-inner {
+        position: absolute;
+        margin: 0 auto;
+        text-align: center;
+        color: $bounty-pink;
+        font-size: rem-calc(18);
+        width: 50%;
+        height: 50%;
+        top: 25%;
+        left: 25%;
+
+        .loader-circle{
+            display: inline-block;
+            border: rem-calc(8) solid $bounty-white;
+            border-radius: 50%;
+            border-top: rem-calc(8) solid $bounty-pink;
+            width: rem-calc(120);
+            height: rem-calc(120);
+            -webkit-animation: spin 0.8s linear infinite; /* Safari */
+            animation: spin 0.8s linear infinite;
+            margin-bottom: rem-calc(16);
+        }
+    }
+}

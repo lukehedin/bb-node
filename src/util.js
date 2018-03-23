@@ -28,13 +28,5 @@ export default {
               if (bbJwt) xhr.setRequestHeader("bb-jwt", bbJwt);
             }
         });
-    },
-    loadGoogleMapsAndPlaces: function(callbackFn){
-        $.getScript('https://www.google.com/jsapi', function() {
-            window.google.load('maps', '3', { other_params: ['key=AIzaSyBnG2wcWi0MrBxd3wTtNCKTau-xHD_B324&libraries=places'], 
-            callback: function() {
-                if(callbackFn) callbackFn();
-            }});
-        });
     }
 };

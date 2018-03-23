@@ -1,0 +1,13 @@
+.bounty-detail-container {
+    .bounty-cover-image {
+        width: 100%;
+		background-position: center;
+        background-size: cover;
+        height: rem-calc(200);
+    }
+
+    .social-button{
+        height: rem-calc(32);
+        width: rem-calc(32);
+    }
+}

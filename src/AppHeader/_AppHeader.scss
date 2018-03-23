@@ -1,0 +1,94 @@
+.app-header {
+    .upper-header{
+        display: flex;
+        padding: rem-calc(8 0);
+
+        .header-logo {
+            flex: 4;
+            cursor: pointer;
+    
+            img {
+                display: none;
+                width: rem-calc(60);
+                height: rem-calc(40);
+    
+                @media #{$device-small} {
+                    display: inline-block;
+                }
+            }
+    
+            h1 {
+                font-family: 'Luckiest Guy', cursive;
+                vertical-align: top;
+                display: inline-block;
+                text-align: center;
+                font-size: $text-small;
+                line-height: rem-calc(20);
+                width: rem-calc(100);
+            }
+    
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+    
+        .header-user {
+            flex: 5;
+            text-align: right;
+    
+            .user-header-info{
+                display: inline-block;
+                padding-right: rem-calc(8);
+            }
+
+            button {
+                margin: rem-calc(2);
+                margin-right: 0;
+            }
+        }
+    }
+    
+    .app-subheader {
+        background-color: $bounty-pink;
+        background-image: url(../Assets//img/icon_background.svg);
+        background-repeat: repeat-x;
+        padding: rem-calc(8 0);
+    
+        .lower-header {
+            font-size: $text-tiny;
+            display: flex;
+    
+            .location-search {
+                @include bounty-item-flex;
+            }
+    
+            .spacer {
+                @include bounty-item-flex;
+                display: none;
+    
+                @media #{$device-large} {
+                    display: inline-block;
+                }
+            }
+    
+            .birthday-facts {
+                @include bounty-item-flex;
+                display: none;
+    
+                @media #{$device-large} {
+                    display: inline-block;
+                }
+    
+                color: $bounty-white;
+    
+                .title {
+                    font-weight: bold;
+                }
+    
+                > div {
+                    padding: rem-calc(0 12);
+                }
+            }
+        }
+    }
+}
